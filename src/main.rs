@@ -60,7 +60,14 @@ impl MessageSaver {
     }
     fn list_messages(&self)
     {
-
+        let json_data = self.get_json_data();
+        if json_data.is_empty() {
+            println!("No messages found.");
+        } else {
+            for message in json_data {
+                println!("ID: {}, Message: {}", message.id, message.message);
+            }
+        }
     }
 
     fn change_path(&mut self,  input: &str) {
@@ -89,6 +96,6 @@ fn main() {
     let message = Message::new("Hello, world!".to_string());
     let path = Path::new("todo.json").to_owned();
     let mut message_saver = MessageSaver::new(path);
-    message_saver.push_to_json(message.message);
+    message_saver.list_messages();
 
 }
